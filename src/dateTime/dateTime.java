@@ -1,5 +1,6 @@
 package dateTime;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,14 +21,13 @@ public class dateTime {
  
             // Declaring a blank string in which content of file will be stored
             String str = "";
- 
-            int i;
- 
-            // read() method will read the file char by char
-            // EOF = -1
-            while ((i = fr.read()) != -1) {
-                // Storing every character in the string
-                str += (char)i;
+           
+            try (BufferedReader br = new BufferedReader(fr)) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                   // process the line.
+                	str += line + "\n";
+                }
             }
  
             // Print and display the string that contains file data
@@ -41,14 +41,13 @@ public class dateTime {
             fw.close();
  
             // Display message
-            System.out.println(
-                "File reading and writing both successful");
+            System.out.println("File reading and writing both successful");
         }
  
         // Catch block to handle the exception like no file in path
         catch (IOException e) {
             // Display message
-            System.out.println("There are some IOException" + e);
+            System.out.println(e);
         }
     }
 }
