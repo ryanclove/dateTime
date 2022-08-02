@@ -111,8 +111,8 @@ public class dateTime {
 		String sec = str.substring(17, 19);
 		String zone = str.substring(19, 20);
 		// Check conditions per substring/parameter
-		if (isNumeric(year) && isNumeric(month) && isNumeric(day) && (time.indexOf("T") == 0) && isNumeric(hour)
-				&& isNumeric(min) && isNumeric(sec)
+		if (isYear(year) && isMonth(month) && isDay(day) && (time.indexOf("T") == 0) && isHour(hour) && isMinOrSec(min)
+				&& isMinOrSec(sec)
 				&& ((zone.indexOf("Z") == 0) || (zone.indexOf("+") == 0) || (zone.indexOf("-") == 0))) {
 			// if time has time zone other than Z, check hh:mm == +-hh:mm
 			if (str.length() == 25) {
@@ -135,15 +135,100 @@ public class dateTime {
 		}
 	}
 
-	// Helper method to check for numeric in strings
-	public static boolean isNumeric(String string) {
+	// Helper method to check for numeric in strings - year
+	public static boolean isYear(String string) {
 		if (string == null || string.equals("")) {
 			// String cannot be parsed, it is null or empty
 			return false;
 		}
 		try {
 			int intValue = Integer.parseInt(string);
-			return true;
+			if (string.length() == 4) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (NumberFormatException e) {
+			// Input String cannot be parsed to Integer
+		}
+		return false;
+	}
+
+	// Helper method for month
+	public static boolean isMonth(String string) {
+		if (string == null || string.equals("")) {
+			// String cannot be parsed, it is null or empty
+			return false;
+		}
+		try {
+			int intValue = Integer.parseInt(string);
+			if (intValue >= 00 && intValue <= 12) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (NumberFormatException e) {
+			// Input String cannot be parsed to Integer
+		}
+		return false;
+	}
+
+	// Helper method for day
+	public static boolean isDay(String string) {
+		if (string == null || string.equals("")) {
+			// String cannot be parsed, it is null or empty
+			return false;
+		}
+		try {
+			int intValue = Integer.parseInt(string);
+			if (intValue >= 01 && intValue <= 31) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (NumberFormatException e) {
+			// Input String cannot be parsed to Integer
+		}
+		return false;
+	}
+
+	// Helper method for hour
+	public static boolean isHour(String string) {
+		if (string == null || string.equals("")) {
+			// String cannot be parsed, it is null or empty
+			return false;
+		}
+		try {
+			int intValue = Integer.parseInt(string);
+			if (intValue >= 00 && intValue <= 23) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (NumberFormatException e) {
+			// Input String cannot be parsed to Integer
+		}
+		return false;
+	}
+
+	// Helper method for minute and seconds
+	public static boolean isMinOrSec(String string) {
+		if (string == null || string.equals("")) {
+			// String cannot be parsed, it is null or empty
+			return false;
+		}
+		try {
+			int intValue = Integer.parseInt(string);
+			if (intValue >= 00 && intValue <= 59) {
+				return true;
+			} else {
+				return false;
+			}
+
 		} catch (NumberFormatException e) {
 			// Input String cannot be parsed to Integer
 		}
@@ -156,7 +241,7 @@ public class dateTime {
 		try {
 
 			// Creating a FileReader object
-			FileReader fr = new FileReader("testFile.txt");
+			FileReader fr = new FileReader("testFile2.txt");
 
 			// Creating a FileWriter object
 			FileWriter fw = new FileWriter("validDateTimes.txt");
@@ -184,8 +269,8 @@ public class dateTime {
 					if (validator(str) == true) {
 						// write to file
 						fw.write(str + System.lineSeparator());
-						// Print and display the string that contains file data
-						System.out.println(str);
+						// Print and display the string that contains file data to console
+						// System.out.println(str);
 					}
 				}
 
