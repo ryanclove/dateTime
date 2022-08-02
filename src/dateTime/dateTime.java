@@ -5,96 +5,6 @@ import java.util.*;
 
 public class dateTime {
 
-	static class validTime {
-		// ISO 8601 YYYY-MM-DDThh:mm:ssTZD
-		private String year;
-		private String month;
-		private String day;
-		private String time;
-		private String hour;
-		private String min;
-		private String sec;
-		private String zone;
-
-		public validTime(String year, String month, String day, String time, String hour, String min, String sec,
-				String zone) {
-			setYear(year);
-			setMonth(month);
-			setDay(day);
-			setTime(time);
-			setHour(hour);
-			setMin(min);
-			setSec(sec);
-			setZone(zone);
-			return;
-		}
-
-		public String getYear() {
-			return year;
-		}
-
-		public void setYear(String year) {
-			this.year = year;
-		}
-
-		public String getMonth() {
-			return month;
-		}
-
-		public void setMonth(String month) {
-			this.month = month;
-		}
-
-		public String getDay() {
-			return day;
-		}
-
-		public void setDay(String day) {
-			this.day = day;
-		}
-
-		public String getTime() {
-			return time;
-		}
-
-		public void setTime(String time) {
-			this.time = time;
-		}
-
-		public String getHour() {
-			return hour;
-		}
-
-		public void setHour(String hour) {
-			this.hour = hour;
-		}
-
-		public String getMin() {
-			return min;
-		}
-
-		public void setMin(String min) {
-			this.min = min;
-		}
-
-		public String getSec() {
-			return sec;
-		}
-
-		public void setSec(String sec) {
-			this.sec = sec;
-		}
-
-		public String getZone() {
-			return zone;
-		}
-
-		public void setZone(String zone) {
-			this.zone = zone;
-		}
-
-	}
-
 	// Checks for Valid Time
 	public static boolean validator(String str) {
 		// Check if enough chars in str
@@ -119,15 +29,12 @@ public class dateTime {
 				String zonehr = str.substring(20, 22);
 				String zonemin = str.substring(23, 25);
 				if ((hour.equals(zonehr)) && (min.equals(zonemin))) {
-					// if pass, send to constructor
-					validTime timecheck = new validTime(year, month, day, time, hour, min, sec, zone);
 					return true;
 				} else { // hh:mm's are not equal
 					return false;
 				}
 			} else { // 20 chars
-				// if pass, send to constructor
-				validTime timecheck = new validTime(year, month, day, time, hour, min, sec, zone);
+				
 				return true;
 			}
 		} else {
