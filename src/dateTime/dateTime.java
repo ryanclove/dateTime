@@ -41,111 +41,66 @@ public class dateTime {
 			return year;
 		}
 
-		public boolean setYear(String year) {
-			if (isNumeric(year)) {
-				this.year = year;
-				return true;
-			} else {
-				return false;
-			}
+		public void setYear(String year) {
+			this.year = year;
 		}
 
 		public String getMonth() {
 			return month;
 		}
 
-		public boolean setMonth(String month) {
-			if (isNumeric(month)) {
-				this.month = month;
-				return true;
-			} else {
-				return false;
-			}
+		public void setMonth(String month) {
+			this.month = month;
 		}
 
 		public String getDay() {
 			return day;
 		}
 
-		public boolean setDay(String day) {
-			if (isNumeric(day)) {
-				this.day = day;
-				return true;
-			} else {
-				return false;
-			}
+		public void setDay(String day) {
+			this.day = day;
 		}
 
 		public String getTime() {
 			return time;
 		}
 
-		public boolean setTime(String time) {
-			if (time.indexOf("T") == 0) {
-				this.time = time;
-				return true;
-			} else {
-				return false;
-			}
+		public void setTime(String time) {
+			this.time = time;
 		}
 
 		public String getHour() {
 			return hour;
 		}
 
-		public boolean setHour(String hour) {
-			if (isNumeric(hour)) {
-				this.hour = hour;
-				return true;
-			} else {
-				return false;
-			}
+		public void setHour(String hour) {
+			this.hour = hour;
 		}
 
 		public String getMin() {
 			return min;
 		}
 
-		public boolean setMin(String min) {
-			if (isNumeric(min)) {
-				this.min = min;
-				return true;
-			} else {
-				return false;
-			}
+		public void setMin(String min) {
+			this.min = min;
 		}
 
 		public String getSec() {
 			return sec;
 		}
 
-		public boolean setSec(String sec) {
-			if (isNumeric(sec)) {
-				this.sec = sec;
-				return true;
-			} else {
-				return false;
-			}
+		public void setSec(String sec) {
+			this.sec = sec;
 		}
 
 		public String getZone() {
 			return zone;
 		}
 
-		public boolean setZone(String zone) {
-			if (zone.indexOf("Z") == 0) {
-				this.zone = zone;
-				return true;
-			} else if ((zone.indexOf("+") == 0)) {
-				this.zone = zone;
-				return true;
-			} else if ((zone.indexOf("-") == 0)) {
-				this.zone = zone;
-				return true;
-			} else { // incorrect zone
-				return false;
-			}
+		public void setZone(String zone) {
+			this.zone = zone;
 		}
+
 	}
 
 	// Checks for Valid Time
@@ -163,12 +118,14 @@ public class dateTime {
 		String min = str.substring(14, 16);
 		String sec = str.substring(17, 19);
 		String zone = str.substring(19, 20);
-		validTime timecheck = new validTime(year, month, day, time, hour, min, sec, zone);
-		// if (timecheck == true) {
-		return true;
-		// } else {
-		// return false;
-		// }
+		if (isNumeric(year) && isNumeric(month) && isNumeric(day) && (time.indexOf("T") == 0) && isNumeric(hour)
+				&& isNumeric(min) && isNumeric(sec)
+				&& ((zone.indexOf("Z") == 0) || (zone.indexOf("+") == 0) || (zone.indexOf("-") == 0))) {
+			validTime timecheck = new validTime(year, month, day, time, hour, min, sec, zone);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	// Helper method to check for numeric in strings
