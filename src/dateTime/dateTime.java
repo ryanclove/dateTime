@@ -163,7 +163,7 @@ public class dateTime {
 		}
 		try {
 			int intValue = Integer.parseInt(string);
-			if (intValue >= 00 && intValue <= 12) {
+			if (intValue >= 01 && intValue <= 12) {
 				return true;
 			} else {
 				return false;
