@@ -18,21 +18,13 @@ public class dateTime {
 
 		public validTime(String year, String month, String day, String time, String hour, String min, String sec,
 				String zone) {
-			// System.out.println(setYear(year));
 			setYear(year);
-			// System.out.println(setMonth(month));
 			setMonth(month);
-			// System.out.println(setDay(day));
 			setDay(day);
-			// System.out.println(setTime(time));
 			setTime(time);
-			// System.out.println(setHour(hour));
 			setHour(hour);
-			// System.out.println(setMin(min));
 			setMin(min);
-			// System.out.println(setSec(sec));
 			setSec(sec);
-			// System.out.println(setZone(zone));
 			setZone(zone);
 			return;
 		}
@@ -107,7 +99,7 @@ public class dateTime {
 	public static boolean validator(String str) {
 		// Check if enough chars in str
 		if ((str.length() != 20) && (str.length() != 25)) {
-			// System.out.println("Incorrect amount of characters to be a proper ISO 6801");
+			// Incorrect amount of characters to be a proper ISO 6801
 			return false;
 		}
 		String year = str.substring(0, 4);
@@ -118,11 +110,26 @@ public class dateTime {
 		String min = str.substring(14, 16);
 		String sec = str.substring(17, 19);
 		String zone = str.substring(19, 20);
+		// Check conditions per substring/parameter
 		if (isNumeric(year) && isNumeric(month) && isNumeric(day) && (time.indexOf("T") == 0) && isNumeric(hour)
 				&& isNumeric(min) && isNumeric(sec)
 				&& ((zone.indexOf("Z") == 0) || (zone.indexOf("+") == 0) || (zone.indexOf("-") == 0))) {
-			validTime timecheck = new validTime(year, month, day, time, hour, min, sec, zone);
-			return true;
+			// if time has time zone other than Z, check hh:mm == +-hh:mm
+			if (str.length() == 25) {
+				String zonehr = str.substring(20, 22);
+				String zonemin = str.substring(23, 25);
+				if ((hour.equals(zonehr)) && (min.equals(zonemin))) {
+					// if pass, send to constructor
+					validTime timecheck = new validTime(year, month, day, time, hour, min, sec, zone);
+					return true;
+				} else { // hh:mm's are not equal
+					return false;
+				}
+			} else { // 20 chars
+				// if pass, send to constructor
+				validTime timecheck = new validTime(year, month, day, time, hour, min, sec, zone);
+				return true;
+			}
 		} else {
 			return false;
 		}
@@ -131,14 +138,14 @@ public class dateTime {
 	// Helper method to check for numeric in strings
 	public static boolean isNumeric(String string) {
 		if (string == null || string.equals("")) {
-			// System.out.println("String cannot be parsed, it is null or empty.");
+			// String cannot be parsed, it is null or empty
 			return false;
 		}
 		try {
 			int intValue = Integer.parseInt(string);
 			return true;
 		} catch (NumberFormatException e) {
-			// System.out.println("Input String cannot be parsed to Integer.");
+			// Input String cannot be parsed to Integer
 		}
 		return false;
 	}
